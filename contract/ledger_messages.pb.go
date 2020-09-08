@@ -28,6 +28,58 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
+type EndorsementPrincipal_Role int32
+
+const (
+	EndorsementPrincipal_MEMBER EndorsementPrincipal_Role = 0
+	EndorsementPrincipal_ADMIN  EndorsementPrincipal_Role = 1
+	EndorsementPrincipal_CLIENT EndorsementPrincipal_Role = 2
+	EndorsementPrincipal_PEER   EndorsementPrincipal_Role = 3
+)
+
+// Enum value maps for EndorsementPrincipal_Role.
+var (
+	EndorsementPrincipal_Role_name = map[int32]string{
+		0: "MEMBER",
+		1: "ADMIN",
+		2: "CLIENT",
+		3: "PEER",
+	}
+	EndorsementPrincipal_Role_value = map[string]int32{
+		"MEMBER": 0,
+		"ADMIN":  1,
+		"CLIENT": 2,
+		"PEER":   3,
+	}
+)
+
+func (x EndorsementPrincipal_Role) Enum() *EndorsementPrincipal_Role {
+	p := new(EndorsementPrincipal_Role)
+	*p = x
+	return p
+}
+
+func (x EndorsementPrincipal_Role) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (EndorsementPrincipal_Role) Descriptor() protoreflect.EnumDescriptor {
+	return file_ledger_messages_proto_enumTypes[0].Descriptor()
+}
+
+func (EndorsementPrincipal_Role) Type() protoreflect.EnumType {
+	return &file_ledger_messages_proto_enumTypes[0]
+}
+
+func (x EndorsementPrincipal_Role) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use EndorsementPrincipal_Role.Descriptor instead.
+func (EndorsementPrincipal_Role) EnumDescriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{19, 0}
+}
+
 type Collection struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -968,6 +1020,500 @@ func (x *GetStatesResponse) GetStates() []*State {
 	return nil
 }
 
+type GetHashRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Context    *TransactionContext `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
+	Collection *Collection         `protobuf:"bytes,2,opt,name=collection,proto3" json:"collection,omitempty"`
+	StateKey   string              `protobuf:"bytes,3,opt,name=state_key,json=stateKey,proto3" json:"state_key,omitempty"`
+}
+
+func (x *GetHashRequest) Reset() {
+	*x = GetHashRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetHashRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHashRequest) ProtoMessage() {}
+
+func (x *GetHashRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHashRequest.ProtoReflect.Descriptor instead.
+func (*GetHashRequest) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *GetHashRequest) GetContext() *TransactionContext {
+	if x != nil {
+		return x.Context
+	}
+	return nil
+}
+
+func (x *GetHashRequest) GetCollection() *Collection {
+	if x != nil {
+		return x.Collection
+	}
+	return nil
+}
+
+func (x *GetHashRequest) GetStateKey() string {
+	if x != nil {
+		return x.StateKey
+	}
+	return ""
+}
+
+type GetHashResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hash []byte `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
+}
+
+func (x *GetHashResponse) Reset() {
+	*x = GetHashResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetHashResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetHashResponse) ProtoMessage() {}
+
+func (x *GetHashResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetHashResponse.ProtoReflect.Descriptor instead.
+func (*GetHashResponse) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GetHashResponse) GetHash() []byte {
+	if x != nil {
+		return x.Hash
+	}
+	return nil
+}
+
+type EndorsementPrincipal struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MspId string                    `protobuf:"bytes,1,opt,name=msp_id,json=mspId,proto3" json:"msp_id,omitempty"`
+	Role  EndorsementPrincipal_Role `protobuf:"varint,2,opt,name=role,proto3,enum=contract.EndorsementPrincipal_Role" json:"role,omitempty"`
+}
+
+func (x *EndorsementPrincipal) Reset() {
+	*x = EndorsementPrincipal{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EndorsementPrincipal) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EndorsementPrincipal) ProtoMessage() {}
+
+func (x *EndorsementPrincipal) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EndorsementPrincipal.ProtoReflect.Descriptor instead.
+func (*EndorsementPrincipal) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *EndorsementPrincipal) GetMspId() string {
+	if x != nil {
+		return x.MspId
+	}
+	return ""
+}
+
+func (x *EndorsementPrincipal) GetRole() EndorsementPrincipal_Role {
+	if x != nil {
+		return x.Role
+	}
+	return EndorsementPrincipal_MEMBER
+}
+
+type EndorsementRule struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MinEndorsements int32                   `protobuf:"varint,1,opt,name=min_endorsements,json=minEndorsements,proto3" json:"min_endorsements,omitempty"`
+	Principals      []*EndorsementPrincipal `protobuf:"bytes,2,rep,name=principals,proto3" json:"principals,omitempty"`
+	Rules           []*EndorsementRule      `protobuf:"bytes,3,rep,name=rules,proto3" json:"rules,omitempty"`
+}
+
+func (x *EndorsementRule) Reset() {
+	*x = EndorsementRule{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EndorsementRule) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EndorsementRule) ProtoMessage() {}
+
+func (x *EndorsementRule) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EndorsementRule.ProtoReflect.Descriptor instead.
+func (*EndorsementRule) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *EndorsementRule) GetMinEndorsements() int32 {
+	if x != nil {
+		return x.MinEndorsements
+	}
+	return 0
+}
+
+func (x *EndorsementRule) GetPrincipals() []*EndorsementPrincipal {
+	if x != nil {
+		return x.Principals
+	}
+	return nil
+}
+
+func (x *EndorsementRule) GetRules() []*EndorsementRule {
+	if x != nil {
+		return x.Rules
+	}
+	return nil
+}
+
+type EndorsementPolicy struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Rule *EndorsementRule `protobuf:"bytes,1,opt,name=rule,proto3" json:"rule,omitempty"`
+}
+
+func (x *EndorsementPolicy) Reset() {
+	*x = EndorsementPolicy{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *EndorsementPolicy) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*EndorsementPolicy) ProtoMessage() {}
+
+func (x *EndorsementPolicy) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use EndorsementPolicy.ProtoReflect.Descriptor instead.
+func (*EndorsementPolicy) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *EndorsementPolicy) GetRule() *EndorsementRule {
+	if x != nil {
+		return x.Rule
+	}
+	return nil
+}
+
+type GetEndorsementPolicyRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Context    *TransactionContext `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
+	Collection *Collection         `protobuf:"bytes,2,opt,name=collection,proto3" json:"collection,omitempty"`
+	StateKey   string              `protobuf:"bytes,3,opt,name=state_key,json=stateKey,proto3" json:"state_key,omitempty"`
+}
+
+func (x *GetEndorsementPolicyRequest) Reset() {
+	*x = GetEndorsementPolicyRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetEndorsementPolicyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEndorsementPolicyRequest) ProtoMessage() {}
+
+func (x *GetEndorsementPolicyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEndorsementPolicyRequest.ProtoReflect.Descriptor instead.
+func (*GetEndorsementPolicyRequest) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *GetEndorsementPolicyRequest) GetContext() *TransactionContext {
+	if x != nil {
+		return x.Context
+	}
+	return nil
+}
+
+func (x *GetEndorsementPolicyRequest) GetCollection() *Collection {
+	if x != nil {
+		return x.Collection
+	}
+	return nil
+}
+
+func (x *GetEndorsementPolicyRequest) GetStateKey() string {
+	if x != nil {
+		return x.StateKey
+	}
+	return ""
+}
+
+type GetEndorsementPolicyResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Policy *EndorsementPolicy `protobuf:"bytes,1,opt,name=policy,proto3" json:"policy,omitempty"`
+}
+
+func (x *GetEndorsementPolicyResponse) Reset() {
+	*x = GetEndorsementPolicyResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetEndorsementPolicyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetEndorsementPolicyResponse) ProtoMessage() {}
+
+func (x *GetEndorsementPolicyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetEndorsementPolicyResponse.ProtoReflect.Descriptor instead.
+func (*GetEndorsementPolicyResponse) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *GetEndorsementPolicyResponse) GetPolicy() *EndorsementPolicy {
+	if x != nil {
+		return x.Policy
+	}
+	return nil
+}
+
+type SetEndorsementPolicyRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Context    *TransactionContext `protobuf:"bytes,1,opt,name=context,proto3" json:"context,omitempty"`
+	Collection *Collection         `protobuf:"bytes,2,opt,name=collection,proto3" json:"collection,omitempty"`
+	StateKey   string              `protobuf:"bytes,3,opt,name=state_key,json=stateKey,proto3" json:"state_key,omitempty"`
+	Policy     *EndorsementPolicy  `protobuf:"bytes,4,opt,name=policy,proto3" json:"policy,omitempty"`
+}
+
+func (x *SetEndorsementPolicyRequest) Reset() {
+	*x = SetEndorsementPolicyRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetEndorsementPolicyRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetEndorsementPolicyRequest) ProtoMessage() {}
+
+func (x *SetEndorsementPolicyRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetEndorsementPolicyRequest.ProtoReflect.Descriptor instead.
+func (*SetEndorsementPolicyRequest) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{24}
+}
+
+func (x *SetEndorsementPolicyRequest) GetContext() *TransactionContext {
+	if x != nil {
+		return x.Context
+	}
+	return nil
+}
+
+func (x *SetEndorsementPolicyRequest) GetCollection() *Collection {
+	if x != nil {
+		return x.Collection
+	}
+	return nil
+}
+
+func (x *SetEndorsementPolicyRequest) GetStateKey() string {
+	if x != nil {
+		return x.StateKey
+	}
+	return ""
+}
+
+func (x *SetEndorsementPolicyRequest) GetPolicy() *EndorsementPolicy {
+	if x != nil {
+		return x.Policy
+	}
+	return nil
+}
+
+type SetEndorsementPolicyResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SetEndorsementPolicyResponse) Reset() {
+	*x = SetEndorsementPolicyResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_ledger_messages_proto_msgTypes[25]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SetEndorsementPolicyResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SetEndorsementPolicyResponse) ProtoMessage() {}
+
+func (x *SetEndorsementPolicyResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_ledger_messages_proto_msgTypes[25]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SetEndorsementPolicyResponse.ProtoReflect.Descriptor instead.
+func (*SetEndorsementPolicyResponse) Descriptor() ([]byte, []int) {
+	return file_ledger_messages_proto_rawDescGZIP(), []int{25}
+}
+
 var File_ledger_messages_proto protoreflect.FileDescriptor
 
 var file_ledger_messages_proto_rawDesc = []byte{
@@ -1081,12 +1627,81 @@ var file_ledger_messages_proto_rawDesc = []byte{
 	0x61, 0x74, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x27, 0x0a, 0x06,
 	0x73, 0x74, 0x61, 0x74, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x63,
 	0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x65, 0x52, 0x06, 0x73,
-	0x74, 0x61, 0x74, 0x65, 0x73, 0x42, 0x45, 0x5a, 0x43, 0x68, 0x74, 0x74, 0x70, 0x73, 0x3a, 0x2f,
-	0x2f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x68, 0x79, 0x70, 0x65,
-	0x72, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x6e, 0x64, 0x61, 0x72, 0x79, 0x2f, 0x66, 0x61, 0x62, 0x72,
-	0x69, 0x63, 0x2d, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x72, 0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73,
-	0x2d, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x61, 0x74, 0x65, 0x73, 0x22, 0x9b, 0x01, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x48, 0x61, 0x73,
+	0x68, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x36, 0x0a, 0x07, 0x63, 0x6f, 0x6e, 0x74,
+	0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x63, 0x6f, 0x6e, 0x74,
+	0x72, 0x61, 0x63, 0x74, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x52, 0x07, 0x63, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74,
+	0x12, 0x34, 0x0a, 0x0a, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e,
+	0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x63, 0x6f, 0x6c, 0x6c,
+	0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x74, 0x61, 0x74, 0x65, 0x5f,
+	0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73, 0x74, 0x61, 0x74, 0x65,
+	0x4b, 0x65, 0x79, 0x22, 0x25, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x48, 0x61, 0x73, 0x68, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x61, 0x73, 0x68, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x0c, 0x52, 0x04, 0x68, 0x61, 0x73, 0x68, 0x22, 0x9b, 0x01, 0x0a, 0x14, 0x45,
+	0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x69, 0x6e, 0x63, 0x69,
+	0x70, 0x61, 0x6c, 0x12, 0x15, 0x0a, 0x06, 0x6d, 0x73, 0x70, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x6d, 0x73, 0x70, 0x49, 0x64, 0x12, 0x37, 0x0a, 0x04, 0x72, 0x6f,
+	0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x23, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50,
+	0x72, 0x69, 0x6e, 0x63, 0x69, 0x70, 0x61, 0x6c, 0x2e, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x04, 0x72,
+	0x6f, 0x6c, 0x65, 0x22, 0x33, 0x0a, 0x04, 0x52, 0x6f, 0x6c, 0x65, 0x12, 0x0a, 0x0a, 0x06, 0x4d,
+	0x45, 0x4d, 0x42, 0x45, 0x52, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x41, 0x44, 0x4d, 0x49, 0x4e,
+	0x10, 0x01, 0x12, 0x0a, 0x0a, 0x06, 0x43, 0x4c, 0x49, 0x45, 0x4e, 0x54, 0x10, 0x02, 0x12, 0x08,
+	0x0a, 0x04, 0x50, 0x45, 0x45, 0x52, 0x10, 0x03, 0x22, 0xad, 0x01, 0x0a, 0x0f, 0x45, 0x6e, 0x64,
+	0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x75, 0x6c, 0x65, 0x12, 0x29, 0x0a, 0x10,
+	0x6d, 0x69, 0x6e, 0x5f, 0x65, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0f, 0x6d, 0x69, 0x6e, 0x45, 0x6e, 0x64, 0x6f, 0x72,
+	0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x12, 0x3e, 0x0a, 0x0a, 0x70, 0x72, 0x69, 0x6e, 0x63,
+	0x69, 0x70, 0x61, 0x6c, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1e, 0x2e, 0x63, 0x6f,
+	0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65,
+	0x6e, 0x74, 0x50, 0x72, 0x69, 0x6e, 0x63, 0x69, 0x70, 0x61, 0x6c, 0x52, 0x0a, 0x70, 0x72, 0x69,
+	0x6e, 0x63, 0x69, 0x70, 0x61, 0x6c, 0x73, 0x12, 0x2f, 0x0a, 0x05, 0x72, 0x75, 0x6c, 0x65, 0x73,
+	0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63,
+	0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x75, 0x6c,
+	0x65, 0x52, 0x05, 0x72, 0x75, 0x6c, 0x65, 0x73, 0x22, 0x42, 0x0a, 0x11, 0x45, 0x6e, 0x64, 0x6f,
+	0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x12, 0x2d, 0x0a,
+	0x04, 0x72, 0x75, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x63, 0x6f,
+	0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65,
+	0x6e, 0x74, 0x52, 0x75, 0x6c, 0x65, 0x52, 0x04, 0x72, 0x75, 0x6c, 0x65, 0x22, 0xa8, 0x01, 0x0a,
+	0x1b, 0x47, 0x65, 0x74, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50,
+	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x36, 0x0a, 0x07,
+	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e,
+	0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x52, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x78, 0x74, 0x12, 0x34, 0x0a, 0x0a, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x2e, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a,
+	0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x74,
+	0x61, 0x74, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73,
+	0x74, 0x61, 0x74, 0x65, 0x4b, 0x65, 0x79, 0x22, 0x53, 0x0a, 0x1c, 0x47, 0x65, 0x74, 0x45, 0x6e,
+	0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x33, 0x0a, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61,
+	0x63, 0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x52, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x22, 0xdd, 0x01, 0x0a,
+	0x1b, 0x53, 0x65, 0x74, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50,
+	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x36, 0x0a, 0x07,
+	0x63, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e,
+	0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x43, 0x6f, 0x6e, 0x74, 0x65, 0x78, 0x74, 0x52, 0x07, 0x63, 0x6f, 0x6e,
+	0x74, 0x65, 0x78, 0x74, 0x12, 0x34, 0x0a, 0x0a, 0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x2e, 0x43, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a,
+	0x63, 0x6f, 0x6c, 0x6c, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1b, 0x0a, 0x09, 0x73, 0x74,
+	0x61, 0x74, 0x65, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x73,
+	0x74, 0x61, 0x74, 0x65, 0x4b, 0x65, 0x79, 0x12, 0x33, 0x0a, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63,
+	0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61,
+	0x63, 0x74, 0x2e, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x52, 0x06, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x22, 0x1e, 0x0a, 0x1c,
+	0x53, 0x65, 0x74, 0x45, 0x6e, 0x64, 0x6f, 0x72, 0x73, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x6f,
+	0x6c, 0x69, 0x63, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x45, 0x5a, 0x43,
+	0x68, 0x74, 0x74, 0x70, 0x73, 0x3a, 0x2f, 0x2f, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x68, 0x79, 0x70, 0x65, 0x72, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x6e, 0x64, 0x61,
+	0x72, 0x79, 0x2f, 0x66, 0x61, 0x62, 0x72, 0x69, 0x63, 0x2d, 0x6c, 0x65, 0x64, 0x67, 0x65, 0x72,
+	0x2d, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2d, 0x67, 0x6f, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x72,
+	0x61, 0x63, 0x74, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1101,53 +1716,76 @@ func file_ledger_messages_proto_rawDescGZIP() []byte {
 	return file_ledger_messages_proto_rawDescData
 }
 
-var file_ledger_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_ledger_messages_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_ledger_messages_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_ledger_messages_proto_goTypes = []interface{}{
-	(*Collection)(nil),          // 0: contract.Collection
-	(*State)(nil),               // 1: contract.State
-	(*StateHistory)(nil),        // 2: contract.StateHistory
-	(*KeyRangeQuery)(nil),       // 3: contract.KeyRangeQuery
-	(*RichQuery)(nil),           // 4: contract.RichQuery
-	(*CreateStateRequest)(nil),  // 5: contract.CreateStateRequest
-	(*CreateStateResponse)(nil), // 6: contract.CreateStateResponse
-	(*ReadStateRequest)(nil),    // 7: contract.ReadStateRequest
-	(*ReadStateResponse)(nil),   // 8: contract.ReadStateResponse
-	(*UpdateStateRequest)(nil),  // 9: contract.UpdateStateRequest
-	(*UpdateStateResponse)(nil), // 10: contract.UpdateStateResponse
-	(*DeleteStateRequest)(nil),  // 11: contract.DeleteStateRequest
-	(*DeleteStateResponse)(nil), // 12: contract.DeleteStateResponse
-	(*ExistsStateRequest)(nil),  // 13: contract.ExistsStateRequest
-	(*ExistsStateResponse)(nil), // 14: contract.ExistsStateResponse
-	(*GetStatesRequest)(nil),    // 15: contract.GetStatesRequest
-	(*GetStatesResponse)(nil),   // 16: contract.GetStatesResponse
-	(*timestamp.Timestamp)(nil), // 17: google.protobuf.Timestamp
-	(*TransactionContext)(nil),  // 18: contract.TransactionContext
+	(EndorsementPrincipal_Role)(0),       // 0: contract.EndorsementPrincipal.Role
+	(*Collection)(nil),                   // 1: contract.Collection
+	(*State)(nil),                        // 2: contract.State
+	(*StateHistory)(nil),                 // 3: contract.StateHistory
+	(*KeyRangeQuery)(nil),                // 4: contract.KeyRangeQuery
+	(*RichQuery)(nil),                    // 5: contract.RichQuery
+	(*CreateStateRequest)(nil),           // 6: contract.CreateStateRequest
+	(*CreateStateResponse)(nil),          // 7: contract.CreateStateResponse
+	(*ReadStateRequest)(nil),             // 8: contract.ReadStateRequest
+	(*ReadStateResponse)(nil),            // 9: contract.ReadStateResponse
+	(*UpdateStateRequest)(nil),           // 10: contract.UpdateStateRequest
+	(*UpdateStateResponse)(nil),          // 11: contract.UpdateStateResponse
+	(*DeleteStateRequest)(nil),           // 12: contract.DeleteStateRequest
+	(*DeleteStateResponse)(nil),          // 13: contract.DeleteStateResponse
+	(*ExistsStateRequest)(nil),           // 14: contract.ExistsStateRequest
+	(*ExistsStateResponse)(nil),          // 15: contract.ExistsStateResponse
+	(*GetStatesRequest)(nil),             // 16: contract.GetStatesRequest
+	(*GetStatesResponse)(nil),            // 17: contract.GetStatesResponse
+	(*GetHashRequest)(nil),               // 18: contract.GetHashRequest
+	(*GetHashResponse)(nil),              // 19: contract.GetHashResponse
+	(*EndorsementPrincipal)(nil),         // 20: contract.EndorsementPrincipal
+	(*EndorsementRule)(nil),              // 21: contract.EndorsementRule
+	(*EndorsementPolicy)(nil),            // 22: contract.EndorsementPolicy
+	(*GetEndorsementPolicyRequest)(nil),  // 23: contract.GetEndorsementPolicyRequest
+	(*GetEndorsementPolicyResponse)(nil), // 24: contract.GetEndorsementPolicyResponse
+	(*SetEndorsementPolicyRequest)(nil),  // 25: contract.SetEndorsementPolicyRequest
+	(*SetEndorsementPolicyResponse)(nil), // 26: contract.SetEndorsementPolicyResponse
+	(*timestamp.Timestamp)(nil),          // 27: google.protobuf.Timestamp
+	(*TransactionContext)(nil),           // 28: contract.TransactionContext
 }
 var file_ledger_messages_proto_depIdxs = []int32{
-	17, // 0: contract.StateHistory.timestamp:type_name -> google.protobuf.Timestamp
-	18, // 1: contract.CreateStateRequest.context:type_name -> contract.TransactionContext
-	0,  // 2: contract.CreateStateRequest.collection:type_name -> contract.Collection
-	1,  // 3: contract.CreateStateRequest.state:type_name -> contract.State
-	18, // 4: contract.ReadStateRequest.context:type_name -> contract.TransactionContext
-	0,  // 5: contract.ReadStateRequest.collection:type_name -> contract.Collection
-	1,  // 6: contract.ReadStateResponse.state:type_name -> contract.State
-	18, // 7: contract.UpdateStateRequest.context:type_name -> contract.TransactionContext
-	0,  // 8: contract.UpdateStateRequest.collection:type_name -> contract.Collection
-	1,  // 9: contract.UpdateStateRequest.state:type_name -> contract.State
-	18, // 10: contract.DeleteStateRequest.context:type_name -> contract.TransactionContext
-	0,  // 11: contract.DeleteStateRequest.collection:type_name -> contract.Collection
-	18, // 12: contract.ExistsStateRequest.context:type_name -> contract.TransactionContext
-	0,  // 13: contract.ExistsStateRequest.collection:type_name -> contract.Collection
-	18, // 14: contract.GetStatesRequest.context:type_name -> contract.TransactionContext
-	0,  // 15: contract.GetStatesRequest.collection:type_name -> contract.Collection
-	3,  // 16: contract.GetStatesRequest.by_key_range:type_name -> contract.KeyRangeQuery
-	4,  // 17: contract.GetStatesRequest.by_rich_query:type_name -> contract.RichQuery
-	1,  // 18: contract.GetStatesResponse.states:type_name -> contract.State
-	19, // [19:19] is the sub-list for method output_type
-	19, // [19:19] is the sub-list for method input_type
-	19, // [19:19] is the sub-list for extension type_name
-	19, // [19:19] is the sub-list for extension extendee
-	0,  // [0:19] is the sub-list for field type_name
+	27, // 0: contract.StateHistory.timestamp:type_name -> google.protobuf.Timestamp
+	28, // 1: contract.CreateStateRequest.context:type_name -> contract.TransactionContext
+	1,  // 2: contract.CreateStateRequest.collection:type_name -> contract.Collection
+	2,  // 3: contract.CreateStateRequest.state:type_name -> contract.State
+	28, // 4: contract.ReadStateRequest.context:type_name -> contract.TransactionContext
+	1,  // 5: contract.ReadStateRequest.collection:type_name -> contract.Collection
+	2,  // 6: contract.ReadStateResponse.state:type_name -> contract.State
+	28, // 7: contract.UpdateStateRequest.context:type_name -> contract.TransactionContext
+	1,  // 8: contract.UpdateStateRequest.collection:type_name -> contract.Collection
+	2,  // 9: contract.UpdateStateRequest.state:type_name -> contract.State
+	28, // 10: contract.DeleteStateRequest.context:type_name -> contract.TransactionContext
+	1,  // 11: contract.DeleteStateRequest.collection:type_name -> contract.Collection
+	28, // 12: contract.ExistsStateRequest.context:type_name -> contract.TransactionContext
+	1,  // 13: contract.ExistsStateRequest.collection:type_name -> contract.Collection
+	28, // 14: contract.GetStatesRequest.context:type_name -> contract.TransactionContext
+	1,  // 15: contract.GetStatesRequest.collection:type_name -> contract.Collection
+	4,  // 16: contract.GetStatesRequest.by_key_range:type_name -> contract.KeyRangeQuery
+	5,  // 17: contract.GetStatesRequest.by_rich_query:type_name -> contract.RichQuery
+	2,  // 18: contract.GetStatesResponse.states:type_name -> contract.State
+	28, // 19: contract.GetHashRequest.context:type_name -> contract.TransactionContext
+	1,  // 20: contract.GetHashRequest.collection:type_name -> contract.Collection
+	0,  // 21: contract.EndorsementPrincipal.role:type_name -> contract.EndorsementPrincipal.Role
+	20, // 22: contract.EndorsementRule.principals:type_name -> contract.EndorsementPrincipal
+	21, // 23: contract.EndorsementRule.rules:type_name -> contract.EndorsementRule
+	21, // 24: contract.EndorsementPolicy.rule:type_name -> contract.EndorsementRule
+	28, // 25: contract.GetEndorsementPolicyRequest.context:type_name -> contract.TransactionContext
+	1,  // 26: contract.GetEndorsementPolicyRequest.collection:type_name -> contract.Collection
+	22, // 27: contract.GetEndorsementPolicyResponse.policy:type_name -> contract.EndorsementPolicy
+	28, // 28: contract.SetEndorsementPolicyRequest.context:type_name -> contract.TransactionContext
+	1,  // 29: contract.SetEndorsementPolicyRequest.collection:type_name -> contract.Collection
+	22, // 30: contract.SetEndorsementPolicyRequest.policy:type_name -> contract.EndorsementPolicy
+	31, // [31:31] is the sub-list for method output_type
+	31, // [31:31] is the sub-list for method input_type
+	31, // [31:31] is the sub-list for extension type_name
+	31, // [31:31] is the sub-list for extension extendee
+	0,  // [0:31] is the sub-list for field type_name
 }
 
 func init() { file_ledger_messages_proto_init() }
@@ -1361,6 +1999,114 @@ func file_ledger_messages_proto_init() {
 				return nil
 			}
 		}
+		file_ledger_messages_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetHashRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetHashResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EndorsementPrincipal); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EndorsementRule); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*EndorsementPolicy); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetEndorsementPolicyRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetEndorsementPolicyResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetEndorsementPolicyRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_ledger_messages_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetEndorsementPolicyResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_ledger_messages_proto_msgTypes[15].OneofWrappers = []interface{}{
 		(*GetStatesRequest_ByKeyRange)(nil),
@@ -1371,13 +2117,14 @@ func file_ledger_messages_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_ledger_messages_proto_rawDesc,
-			NumEnums:      0,
-			NumMessages:   17,
+			NumEnums:      1,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_ledger_messages_proto_goTypes,
 		DependencyIndexes: file_ledger_messages_proto_depIdxs,
+		EnumInfos:         file_ledger_messages_proto_enumTypes,
 		MessageInfos:      file_ledger_messages_proto_msgTypes,
 	}.Build()
 	File_ledger_messages_proto = out.File
